@@ -1,0 +1,60 @@
+import random
+
+# Constants for rock, paper, and scissors
+ROCK = 0
+PAPER = 1
+SCISSORS = 2
+
+# Read random seed to support testing (do not alter)
+seed = int(input())
+# Set the seed for random
+random.seed(int(seed))
+
+# Read player names
+player1 = input()
+player2 = input()
+
+# Read and validate the number of rounds
+while True:
+    rounds = int(input())
+    if rounds > 0:
+        break
+    else:
+        print("Rounds must be > 0")
+
+# Output player names and number of rounds
+print(f"{player1} vs {player2} for {rounds} rounds")
+
+# Track wins
+p1_wins = 0
+p2_wins = 0
+
+# Function to determine the winner
+def determine_winner(p1_choice, p2_choice, player1, player2):
+    if (p1_choice == ROCK and p2_choice == SCISSORS) or \
+       (p1_choice == SCISSORS and p2_choice == PAPER) or \
+       (p1_choice == PAPER and p2_choice == ROCK):
+        print(f"{player1} wins with", ["rock", "paper", "scissors"][p1_choice])
+        return player1
+    else:
+        print(f"{player2} wins with", ["rock", "paper", "scissors"][p2_choice])
+        return player2
+
+# Generate random choices and determine the winner for each round
+for _ in range(rounds):
+    while True:
+        p1_choice = random.randint(0, 2)
+        p2_choice = random.randint(0, 2)
+        
+        if p1_choice == p2_choice:
+            print("Tie")
+        else:
+            winner = determine_winner(p1_choice, p2_choice, player1, player2)
+            if winner == player1:
+                p1_wins += 1
+            else:
+                p2_wins += 1
+            break
+
+# Output the final results
+print(f"{player1} wins {p1_wins} and {player2} wins {p2_wins}")
